@@ -110,3 +110,22 @@ function checkAllNotDefault() {
 function prepareForOutput(output) {
     return output.toFixed(3);
 }
+function getCarDistance(){
+   
+    const axios = require('axios');
+
+    // Make a request for a user with a given ID
+    var urlString = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=Vancouver+BC|Seattle&destinations=San+Francisco|Victoria+BC&key=YOUR_API_KEY
+    axios.get(urlString)
+      .then(function (response) {
+        // handle success
+        console.log(response);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+      .then(function () {
+        // always executed
+      });
+}
