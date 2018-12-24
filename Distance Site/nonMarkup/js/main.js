@@ -1,7 +1,7 @@
 var lat1 = -91;
 var lat2 = -91;
-var long1 = -91;
-var long2 = -91;
+var lon1 = -91;
+var lon2 = -91;
 new Vue({
     el: '#app',
     data: {
@@ -19,7 +19,7 @@ new Vue({
     methods: {
         fillInAddress: function (place) {
             lat1 = place.geometry.location.lat();
-            long1 = place.geometry.location.lng();
+            lon1 = place.geometry.location.lng();
             this.address = place.name;
             trySubmit();
         },
@@ -44,7 +44,7 @@ new Vue({
     methods: {
         fillInAddress: function (place) {
             lat2 = place.geometry.location.lat();
-            long2 = place.geometry.location.lng();
+            lon2 = place.geometry.location.lng();
             this.address = place.name;
             trySubmit();
         },
@@ -54,16 +54,33 @@ new Vue({
 
 function trySubmit() {
     if (checkAllNotDefault()) {
-
+        var aeiralDistMeters = getAerialDist();
     }
+}
+
+function getAerialDist() {
+    //haversines formula from https://www.movable-type.co.uk/scripts/latlong.html
+    var R = 6371e3; // metres
+    var φ1 = lat1.toRadians();
+    var φ2 = lat2.toRadians();
+    var Δφ = (lat2 - lat1).toRadians();
+    var Δλ = (lon2 - lon1).toRadians();
+
+    var a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+        Math.cos(φ1) * Math.cos(φ2) *
+        Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+    var d = R * c;
+    return d;
 }
 
 function checkAllNotDefault() {
     try {
         if (lat1 > -91) {
             if (lat2 > -91) {
-                if (long1 > -91) {
-                    if (long2 > -91) {
+                if (lon1 > -91) {
+                    if (lon2 > -91) {
                         return true
                     }
                 }
