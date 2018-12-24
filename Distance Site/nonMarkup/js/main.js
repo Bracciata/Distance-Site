@@ -34,7 +34,7 @@ new Vue({
         address: ''
     },
     mounted: function () {
-        this.googleMap = new google.maps.places.Autocomplete((document.getElementById('autocomplete')), {
+        this.googleMap = new google.maps.places.Autocomplete((document.getElementById('autocomplete2')), {
             types: ['geocode']
         });
         this.googleMap.addListener('place_changed', function () {
