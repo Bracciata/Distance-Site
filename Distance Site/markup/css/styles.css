@@ -1,5 +1,29 @@
-h1 {
-  color: blue;
+.locationRow {
+  display: flex;
+  flex-direction: row;
+  padding: 30px;
+  justify-content: space-around;
+}
+.locationRow .container {
+  width: 80%;
+}
+.locationRow .autoCompleteClass {
+  width: 100%;
+}
+
+.outputsDiv {
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  margin: 60px;
+  background-color: coral;
+}
+
+.section {
+  background-color: white;
+  height: 100%;
 }
 
 /*# sourceMappingURL=styles.css.map */

@@ -6,30 +6,37 @@
 </head>
 
 <body>
-    <div class="locationRow">
-        <div class="container" id="app">
-            <form>
-                <div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group-addon"><span class="fa fa-compass"></span></div>
-                        <input id="autocomplete" name="address_1" class="form-control controls" type="text" placeholder="Locate Your Address"
-                            v-model="address">
-                        <div class="input-group-addon"><span class="fa fa-home"></span></div>
+    <div class="section">
+        <div class="locationRow">
+            <div class="container" id="app">
+                <form>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-addon"><span class="fa fa-compass"></span></div>
+                            <input id="autocomplete" name="address_1" class="autoCompleteClass" type="text"
+                                placeholder="Locate Your Address" v-model="address">
+                            <div class="input-group-addon"><span class="fa fa-home"></span></div>
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
+            <div class="container" id="app2">
+                <form>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-addon"><span class="fa fa-compass"></span></div>
+                            <input id="autocomplete2" name="address_1" class="autoCompleteClass" type="text"
+                                placeholder="Locate Your Address" v-model="address">
+                            <div class="input-group-addon"><span class="fa fa-home"></span></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class="container" id="app2">
-            <form>
-                <div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group-addon"><span class="fa fa-compass"></span></div>
-                        <input id="autocomplete2" name="address_1" class="form-control controls" type="text" placeholder="Locate Your Address"
-                            v-model="address">
-                        <div class="input-group-addon"><span class="fa fa-home"></span></div>
-                    </div>
-                </div>
-            </form>
+        <div class="outputsDiv">
+            <h3 id="aerialDistText">
+                Bird's Distance is
+            </h3>
         </div>
     </div>
 </body>

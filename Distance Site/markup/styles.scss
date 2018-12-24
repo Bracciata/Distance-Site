@@ -1,3 +1,24 @@
-h1 {
-    color: blue;
+.locationRow{
+    display: flex;
+    flex-direction: row;
+    padding: 30px;
+    .container{
+        width: 80%;
+    }.autoCompleteClass{
+        width: 100%;
+    }
+    justify-content: space-around;
+
+}
+.outputsDiv{
+    display: flex;
+    flex-direction: column;
+}
+body{
+    margin: 60px;
+    background-color: coral;
+}
+.section{
+    background-color: white;
+    height: 100%;
 }

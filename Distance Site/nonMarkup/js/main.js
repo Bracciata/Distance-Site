@@ -24,7 +24,7 @@ window.onload = function () {
                 this.address = place.name;
                 trySubmit();
             },
-            canSubmit: function () {}
+            canSubmit: false
         }
     });
 
@@ -49,7 +49,7 @@ window.onload = function () {
                 this.address = place.name;
                 trySubmit();
             },
-            canSubmit: function () {}
+            canSubmit: false
         }
     });
 }
@@ -58,7 +58,8 @@ function trySubmit() {
     if (checkAllNotDefault()) {
         var aeiralDistMeters = getAerialDist();
         var aeiralDistMiles = metersToMiles(aeiralDistMeters);
-        var textForAerial = "Birds Distance is " + (aeiralDistMeters / 1000) + " kilometers (" + aeiralDistMiles + " miles)";
+        var textForAerial = "Bird's Distance is " + prepareForOutput(aeiralDistMeters / 1000) + " kilometers (" + prepareForOutput(aeiralDistMiles) + " miles)";
+        document.querySelector("#aerialDistText").innerHTML = textForAerial;
         console.log(textForAerial);
     }
 }
@@ -104,4 +105,8 @@ function checkAllNotDefault() {
     } catch (ex) {
         return false;
     }
+}
+
+function prepareForOutput(output) {
+    return output.toFixed(3);
 }
