@@ -61,6 +61,7 @@ function trySubmit() {
         var textForAerial = "Bird's Distance is " + prepareForOutput(aeiralDistMeters / 1000) + " kilometers (" + prepareForOutput(aeiralDistMiles) + " miles)";
         document.querySelector("#aerialDistText").innerHTML = textForAerial;
         console.log(textForAerial);
+        getCarDistance();
     }
 }
 
@@ -110,22 +111,13 @@ function checkAllNotDefault() {
 function prepareForOutput(output) {
     return output.toFixed(3);
 }
-function getCarDistance(){
-   
-    const axios = require('axios');
+
+function getCarDistance() {
 
     // Make a request for a user with a given ID
-    var urlString = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=Vancouver+BC|Seattle&destinations=San+Francisco|Victoria+BC&key=YOUR_API_KEY
-    axios.get(urlString)
-      .then(function (response) {
-        // handle success
-        console.log(response);
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-      })
-      .then(function () {
-        // always executed
-      });
+    var urlString = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + lat1.toString() + "," + lon1.toString() + "&destinations=" + lat2.toString() + "," + lon2.toString() + "&key=AIzaSyCPAZ1mgyT33HhGzyL-Pe2SXrnsqNlMVW4";
+    var carInfo=d3.request(urlString)
+    .mimeType("application/json")
+    .response(function(xhr) { return JSON.parse(xhr.responseText); });
+    console.log(carInfo);
 }
