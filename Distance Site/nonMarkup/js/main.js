@@ -116,8 +116,20 @@ function getCarDistance() {
 
     // Make a request for a user with a given ID
     var urlString = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + lat1.toString() + "," + lon1.toString() + "&destinations=" + lat2.toString() + "," + lon2.toString() + "&key=AIzaSyCPAZ1mgyT33HhGzyL-Pe2SXrnsqNlMVW4";
-    var carInfo=d3.request(urlString)
-    .mimeType("application/json")
-    .response(function(xhr) { return JSON.parse(xhr.responseText); });
-    console.log(carInfo);
+    const axios = require('axios');
+
+    // Make a request for a user with a given ID
+    axios.get(urlString)
+        .then(function (response) {
+            // handle success
+            console.log(response);
+        })
+        .catch(function (error) {
+            // handle error
+            console.log(error);
+        })
+        .then(function () {
+            // always executed
+        });
+
 }
