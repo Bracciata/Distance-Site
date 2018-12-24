@@ -2,83 +2,87 @@ var lat1 = -91;
 var lat2 = -91;
 var lon1 = -181;
 var lon2 = -181;
-new Vue({
-    el: '#app',
-    data: {
-        googleMap: '',
-        address: '',
-    },
-    mounted: function () {
-        this.googleMap = new google.maps.places.Autocomplete((document.getElementById('autocomplete')), {
-            types: ['geocode']
-        });
-        this.googleMap.addListener('place_changed', function () {
-            this.fillInAddress(this.googleMap.getPlace());
-        }.bind(this));
-    },
-    methods: {
-        fillInAddress: function (place) {
-            lat1 = place.geometry.location.lat();
-            lon1 = place.geometry.location.lng();
-            this.address = place.name;
-            trySubmit();
+window.onload = function () {
+    new Vue({
+        el: '#app',
+        data: {
+            googleMap: '',
+            address: '',
         },
-        canSubmit: function () {}
-    }
-});
+        mounted: function () {
+            this.googleMap = new google.maps.places.Autocomplete((document.getElementById('autocomplete')), {
+                types: ['geocode']
+            });
+            this.googleMap.addListener('place_changed', function () {
+                this.fillInAddress(this.googleMap.getPlace());
+            }.bind(this));
+        },
+        methods: {
+            fillInAddress: function (place) {
+                lat1 = place.geometry.location.lat();
+                lon1 = place.geometry.location.lng();
+                this.address = place.name;
+                trySubmit();
+            },
+            canSubmit: function () {}
+        }
+    });
 
-new Vue({
-    el: '#app2',
-    data: {
-        googleMap: '',
-        address: ''
-    },
-    mounted: function () {
-        this.googleMap = new google.maps.places.Autocomplete((document.getElementById('autocomplete2')), {
-            types: ['geocode']
-        });
-        this.googleMap.addListener('place_changed', function () {
-            this.fillInAddress(this.googleMap.getPlace());
-        }.bind(this));
-    },
-    methods: {
-        fillInAddress: function (place) {
-            lat2 = place.geometry.location.lat();
-            lon2 = place.geometry.location.lng();
-            this.address = place.name;
-            trySubmit();
+    new Vue({
+        el: '#app2',
+        data: {
+            googleMap: '',
+            address: ''
         },
-        canSubmit: function () {}
-    }
-});
+        mounted: function () {
+            this.googleMap = new google.maps.places.Autocomplete((document.getElementById('autocomplete2')), {
+                types: ['geocode']
+            });
+            this.googleMap.addListener('place_changed', function () {
+                this.fillInAddress(this.googleMap.getPlace());
+            }.bind(this));
+        },
+        methods: {
+            fillInAddress: function (place) {
+                lat2 = place.geometry.location.lat();
+                lon2 = place.geometry.location.lng();
+                this.address = place.name;
+                trySubmit();
+            },
+            canSubmit: function () {}
+        }
+    });
+}
 
 function trySubmit() {
     if (checkAllNotDefault()) {
         var aeiralDistMeters = getAerialDist();
         var aeiralDistMiles = metersToMiles(aeiralDistMeters);
         var textForAerial = "Birds Distance is " + (aeiralDistMeters / 1000) + " kilometers (" + aeiralDistMiles + " miles)";
-      console.log(textForAerial);
+        console.log(textForAerial);
     }
 }
 
 function metersToMiles(meters) {
     return meters * 0.00062137;
 }
+
 function toRad(Value) {
     /** Converts numeric degrees to radians */
     return Value * Math.PI / 180;
 }
+
 function getAerialDist() {
     //haversines formula from https://www.movable-type.co.uk/scripts/latlong.html
     var R = 6371e3; // metres
-    var φ1 = toRad(lat1);
-    var φ2 = toRad(lat2);
-    var Δφ = toRad(lat2 - lat1);
-    var Δλ = toRad(lon2 - lon1);
+    var radLat1 = toRad(lat1);
+    var radLat2 = toRad(lat2);
+    var radDiff = toRad(lat2 - lat1);
+    var radDiffLon = toRad(lon2 - lon1);
 
-    var a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
-        Math.cos(φ1) * Math.cos(φ2) *
-        Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+    var a = Math.sin(radDiff / 2) * Math.sin(radDiff / 2) +
+        Math.cos(radLat1) * Math.cos(radLat2) *
+        Math.sin(radDiffLon / 2) * Math.sin(radDiffLon / 2);
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
     var d = R * c;
