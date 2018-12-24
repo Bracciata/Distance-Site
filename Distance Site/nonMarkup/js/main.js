@@ -64,14 +64,17 @@ function trySubmit() {
 function metersToMiles(meters) {
     return meters * 0.00062137;
 }
-
+function toRad(Value) {
+    /** Converts numeric degrees to radians */
+    return Value * Math.PI / 180;
+}
 function getAerialDist() {
     //haversines formula from https://www.movable-type.co.uk/scripts/latlong.html
     var R = 6371e3; // metres
-    var φ1 = lat1.toRadians();
-    var φ2 = lat2.toRadians();
-    var Δφ = (lat2 - lat1).toRadians();
-    var Δλ = (lon2 - lon1).toRadians();
+    var φ1 = toRad(lat1);
+    var φ2 = toRad(lat2);
+    var Δφ = toRad(lat2 - lat1);
+    var Δλ = toRad(lon2 - lon1);
 
     var a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
         Math.cos(φ1) * Math.cos(φ2) *
