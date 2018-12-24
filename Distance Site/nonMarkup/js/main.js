@@ -55,7 +55,13 @@ new Vue({
 function trySubmit() {
     if (checkAllNotDefault()) {
         var aeiralDistMeters = getAerialDist();
+        var aeiralDistMiles= metersToMiles(aeiralDistMeters);
+        var textForAerial ="Birds Distance is "+(aeiralDistMeters/1000)+" kilometers ("+aeiralDistMiles+" miles)";
     }
+}
+
+function metersToMiles(meters) {
+    return meters * 0.00062137;
 }
 
 function getAerialDist() {
