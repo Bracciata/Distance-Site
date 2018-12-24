@@ -1,7 +1,7 @@
 var lat1 = -91;
 var lat2 = -91;
-var lon1 = -91;
-var lon2 = -91;
+var lon1 = -181;
+var lon2 = -181;
 new Vue({
     el: '#app',
     data: {
@@ -55,8 +55,9 @@ new Vue({
 function trySubmit() {
     if (checkAllNotDefault()) {
         var aeiralDistMeters = getAerialDist();
-        var aeiralDistMiles= metersToMiles(aeiralDistMeters);
-        var textForAerial ="Birds Distance is "+(aeiralDistMeters/1000)+" kilometers ("+aeiralDistMiles+" miles)";
+        var aeiralDistMiles = metersToMiles(aeiralDistMeters);
+        var textForAerial = "Birds Distance is " + (aeiralDistMeters / 1000) + " kilometers (" + aeiralDistMiles + " miles)";
+      console.log(textForAerial);
     }
 }
 
@@ -85,9 +86,9 @@ function checkAllNotDefault() {
     try {
         if (lat1 > -91) {
             if (lat2 > -91) {
-                if (lon1 > -91) {
-                    if (lon2 > -91) {
-                        return true
+                if (lon1 > -181) {
+                    if (lon2 > -181) {
+                        return true;
                     }
                 }
             }
