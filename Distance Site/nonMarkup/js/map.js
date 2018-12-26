@@ -113,12 +113,11 @@ function prepareForOutput(output) {
 }
 
 function getCarDistance() {
-
-    // Make a request for a user with a given ID
-    var urlString = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + lat1.toString() + "," + lon1.toString() + "&destinations=" + lat2.toString() + "," + lon2.toString() + "&key=AIzaSyCPAZ1mgyT33HhGzyL-Pe2SXrnsqNlMVW4";
     const axios = require('axios');
 
     // Make a request for a user with a given ID
+    var urlString = "https://maps.googleapis.com/maps/api/distancematrix/json?origins="+ lat1.toString() +"," + lon1.toString() + "&destinations=" + lat2.toString() + "," + lon2.toString() + "&key=AIzaSyCPAZ1mgyT33HhGzyL-Pe2SXrnsqNlMVW4";
+   console.log(urlString);
     axios.get(urlString)
         .then(function (response) {
             // handle success
@@ -131,5 +130,4 @@ function getCarDistance() {
         .then(function () {
             // always executed
         });
-
 }
