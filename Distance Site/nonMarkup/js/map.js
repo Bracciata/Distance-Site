@@ -60,7 +60,8 @@ function trySubmit() {
         var aeiralDistMiles = metersToMiles(aeiralDistMeters);
         var textForAerial = "Bird's Distance is " + prepareForOutput(aeiralDistMeters / 1000) + " kilometers (" + prepareForOutput(aeiralDistMiles) + " miles)";
         document.querySelector("#aerialDistText").innerHTML = textForAerial;
-        console.log(textForAerial);
+        console.log(textForAerial.toString());
+        console.log("hi");
         getCarDistance();
     }
 }
@@ -113,15 +114,16 @@ function prepareForOutput(output) {
 }
 
 function getCarDistance() {
-    const axios = require('axios');
 
     // Make a request for a user with a given ID
-    var urlString = "https://maps.googleapis.com/maps/api/distancematrix/json?origins="+ lat1.toString() +"," + lon1.toString() + "&destinations=" + lat2.toString() + "," + lon2.toString() + "&key=AIzaSyCPAZ1mgyT33HhGzyL-Pe2SXrnsqNlMVW4";
-   console.log(urlString);
+    var urlString = "/nonMarkup/php/getCarInfo.php?o="+(lat1.toString()+","+lon1.toString())+"&d="+ lat2.toString() + "," + lon2.toString();
+    const axios = require('axios');
+    // Make a request for a user with a given ID
     axios.get(urlString)
         .then(function (response) {
             // handle success
             console.log(response);
+            updateCarInfo(parseJSONForCarDistance(response));
         })
         .catch(function (error) {
             // handle error
@@ -130,4 +132,16 @@ function getCarDistance() {
         .then(function () {
             // always executed
         });
+        //add check for zero results which means rpute not found
+}
+function parseJSONForCarDistance(response){
+    console.log(response);
+
+    response=JSON.parse(response.data);
+    console.log( response.rows[0].elements[0].distance.text);
+    return response.rows[0].elements[0].distance.text + "("+metersToMiles(response.rows[0].elements[0].distance.value)+" miles) "+response.rows[0].elements[0].duration.text;
+    }
+function updateCarInfo(textToAdd){
+    var textBox = document.querySelector("#carDistText");
+    textBox.innerHTML="Car's Distance is "+textToAdd;
 }
