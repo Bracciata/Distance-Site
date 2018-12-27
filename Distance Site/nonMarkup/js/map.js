@@ -60,8 +60,6 @@ function trySubmit() {
         var aeiralDistMiles = metersToMiles(aeiralDistMeters);
         var textForAerial = "Bird's Distance is " + prepareForOutput(aeiralDistMeters / 1000) + " kilometers (" + prepareForOutput(aeiralDistMiles) + " miles)";
         document.querySelector("#aerialDistText").innerHTML = textForAerial;
-        console.log(textForAerial.toString());
-        console.log("hi");
         getCarDistance();
     }
 }
@@ -122,7 +120,6 @@ function getCarDistance() {
     axios.get(urlString)
         .then(function (response) {
             // handle success
-            console.log(response);
             updateCarInfo(parseJSONForCarDistance(response));
         })
         .catch(function (error) {
@@ -135,10 +132,8 @@ function getCarDistance() {
         //add check for zero results which means rpute not found
 }
 function parseJSONForCarDistance(response){
-    console.log(response);
 
     response=JSON.parse(response.data);
-    console.log( response.rows[0].elements[0].distance.text);
     return response.rows[0].elements[0].distance.text + "("+metersToMiles(response.rows[0].elements[0].distance.value)+" miles) "+response.rows[0].elements[0].duration.text;
     }
 function updateCarInfo(textToAdd){
